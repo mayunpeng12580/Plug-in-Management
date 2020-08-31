@@ -1,0 +1,9 @@
+$color: red;
+
+@mixin webkit($attr, $value) {
+    -webkit-#{$attr}:$value ;
+    -moz-#{$attr}:$value ;
+    -ms-#{$attr}:$value ;
+    -o-#{$attr}:$value ;
+    box-#{$attr}:$value ;
+}

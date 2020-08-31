@@ -1,0 +1,27 @@
+
+@import './reset.scss';
+@import './sassConfig.scss';
+
+//全局性公共的样式
+
+body {
+    background-color: #001529!important;
+}
+
+.inline-button {
+    button + button {
+        margin-left: 10px;;
+    }
+}
+
+.table-wrap {
+    padding-top: 30px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.color-red {
+    color: #ff0000;
+}
