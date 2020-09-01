@@ -35,7 +35,7 @@ class LoginForm extends Component {
     onFinish = (values) => {
         let password = CryptoJs.MD5(values.password).toString();
         const requestData = {
-            username: values.username,
+            name: values.name,
             password: password,
             code: values.code,
         }
@@ -48,31 +48,26 @@ class LoginForm extends Component {
             this.setState({
                 loading: false
                 })
+                //路由跳转
+                // 保存token
+            // setToken('adminToken');
+            setUsername('username')
+            this.props.history.push('/index')
         }).catch(err=>{
             console.log(err);
             this.setState({
             loading: false
             })
 
-            // 保存token
-            setToken('adminToken');
-            setUsername('username')
-
-            //路由跳转
-            this.props.history.push('/index')
+            
         })
-        // console.log('Received values of form: ', values);
       };
 
       //提交表单信息
       toggleForm = () => {
           this.props.switchForm("register");
-        console.log(111)
       }
 
-      
-
-    
 
       //input输入处理
       inputChange = (e) => {
@@ -100,7 +95,7 @@ class LoginForm extends Component {
                         onFinish={this.onFinish}
                         >
                         <Form.Item
-                            name="username"
+                            name="name"
                             rules={
                                 [
                                     { 

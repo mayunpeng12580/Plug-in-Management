@@ -20,7 +20,7 @@ class RegisterForm extends Component {
     constructor(){
         super();
         this.state = {
-            username:'',
+            name:'',
             module:'register'
         }
     }
@@ -28,31 +28,29 @@ class RegisterForm extends Component {
     onFinish = (values) => {
         let password = CryptoJs.MD5(values.password).toString();
         const requestData = {
-            username: values.username,
+            name: values.name,
             password: password,
             code: values.code,
         }
-        console.log(requestData);
 
         Register(requestData)
-        .then(res=>{console.log(res)})
+        .then(res=>{this.toggleForm();})
         .catch(err=>{
             console.log(err)
-            this.toggleForm();
+            
         })
         // console.log('Received values of form: ', values);
       };
 
     toggleForm = () => {
         this.props.switchForm("login");
-      console.log(111)
     }
 
     //input输入处理
     inputChange = (e) => {
         let value = e.target.value
         this.setState({
-          username: value,
+          name: value,
         })
     }
 
@@ -73,14 +71,14 @@ class RegisterForm extends Component {
                         onFinish={this.onFinish}
                         >
                         <Form.Item
-                            name="username"
+                            name="name"
                             rules={[
                                 {
                                     type: 'email',
                                     message: '邮箱格式错误！！！'
                                 },{ required: true, message: '邮箱不能为空!' }]}
                         >
-                            <Input value={this.state.username} onChange={this.inputChange} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="请输入邮箱" />
+                            <Input value={this.state.name} onChange={this.inputChange} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="请输入邮箱" />
                         </Form.Item>
                         <Form.Item
                             name="password"
@@ -134,7 +132,7 @@ class RegisterForm extends Component {
                                     <Input prefix={<VerifiedOutlined  className="site-form-item-icon" />} type="password" placeholder="请输入验证码" />
                                 </Col>
                                 <Col className="gutter-row" span={9}>
-                                    <Code module={this.state.module} username={this.state.username}></Code> 
+                                    <Code module={this.state.module} name={this.state.name}></Code> 
                                 </Col>
                             </Row>
                         </Form.Item>

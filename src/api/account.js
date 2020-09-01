@@ -3,7 +3,7 @@ import service from "../../src/utils/request";
 // 登录接口
 export function Login(data){
     return service.request({
-        url: '/login/',
+        url: 'api/login/login/',
         method: 'POST',
         data: data,//请求类型为post时
         // params: data //请求类型为get时
@@ -23,7 +23,7 @@ export function GetCode(data){
 // 注册接口
 export function Register(data){
     return service.request({
-        url: '/register/',
+        url: 'api/user/addUser/',
         method: 'POST',
         data: data,//请求类型为post时
         // params: data //请求类型为get时
