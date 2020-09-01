@@ -1,3 +1,10 @@
+import { getRoutelist } from '@/api/route'
+
+window.onload = getRoutelist().then(res => {
+    console.log(res)
+}).catch(err => {console.log(err)})
+    
+
 const router = [
     {
         key: '/index',
