@@ -4,6 +4,7 @@ import { Table } from 'antd';
 import { GetList, Delete, Status } from '../../api/department'
 
 
+
 class TableComponent extends React.Component {
 
     constructor(props){

@@ -44,13 +44,12 @@ class LoginForm extends Component {
             
         })
         Login(requestData).then(res=>{
-            console.log(res)
             this.setState({
                 loading: false
                 })
                 //路由跳转
                 // 保存token
-            // setToken('adminToken');
+            setToken('adminToken');
             setUsername('username')
             this.props.history.push('/index')
         }).catch(err=>{

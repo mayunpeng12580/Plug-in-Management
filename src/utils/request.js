@@ -24,7 +24,6 @@ const service = axios.create({
 
 // 第三部响应拦截
 service.interceptors.response.use(function (response) {
-    console.log(3333333333)
     // Do something with response data
     return response;
   }, function (error) {
