@@ -13,7 +13,7 @@ export function getUserlist(data){
 // 获取用户详情
 export function getuser(data){
     return service.request({
-        url: '/getUser/' + data,
+        url: 'api/user/getUser/' + data,
         method: 'get',
         // data: data,//请求类型为post时
         // params: data //请求类型为get时

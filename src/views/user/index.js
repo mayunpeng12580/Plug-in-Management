@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import UserFrom from './form'
 
-import { getUserlist } from '../../api/user';
+import { getUserlist, deleteUser } from '../../api/user';
 
 import { Table, Tag, Space, Button, Input, Row, Col, Modal } from 'antd';
 const { Search } = Input;
@@ -48,7 +48,7 @@ class User extends React.Component {
 
                 <div className="inline-button">
                     
-                    <Button type='primary' >
+                    <Button type='primary' onClick={()=>this.onHandleEdit(rowData.id)}>
                       编辑
                       {/* <Link to={{pathname: '/index/department/add', state:{id: rowData.id}}} >编辑</Link> */}
                       </Button>
@@ -58,36 +58,79 @@ class User extends React.Component {
           }
         }
       ],
-      formIsShow: false
+      formIsShow: false,
+      visible: false,
+      delId: null
     };
   }
 
   componentDidMount () {
+    this.loadData()
+  }
+
+  loadData = () => {
     getUserlist().then(res => {
       console.log(res.data);
       this.setState({
-        dataSource: res.data
+        dataSource: res.data,
+        formIsShow :false
       })
     }).catch(err => {
 
     })
-
   }
+
 
   onHandleAdd = () => {
     console.log('add')
     this.setState({
-      formIsShow: true
+      formIsShow: true,
+      delId: null
     })
   }
-  
 
   onHandleDelete = (id) => {
     console.log(id)
+    this.setState({
+      visible: true,
+      delId: id
+    })
+  }
+  
+  onHandleEdit = (id) => {
+    this.setState({
+      formIsShow: true,
+      delId: id
+    })
   }
 
+  handleOk = e => {
+    console.log(e);
+    deleteUser(this.state.delId)
+      .then(res => {
+        this.setState({
+          delId: null
+        })
+        this.loadData()
+
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    this.setState({
+      visible: false,
+    });
+  };
+
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  };
+
   render() {
-    const { dataSource, columns, formIsShow } =this.state
+    const { dataSource, columns, formIsShow, delId } =this.state
     return (
         <Fragment>
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
@@ -107,8 +150,16 @@ class User extends React.Component {
           <Table dataSource={dataSource} columns={columns} />
 
           {/* 弹出层 */}
-          <UserFrom isShow={formIsShow}></UserFrom>
+          <UserFrom isShow={formIsShow} id={delId} loadList={this.loadData}></UserFrom>
+          <Modal
+          title="系统提示"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <p>确认删除该用户？</p>
           
+        </Modal>
         </Fragment>
     )
   }
